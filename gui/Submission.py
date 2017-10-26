@@ -1,5 +1,5 @@
-from urllib import urlencode
-from urllib2 import urlopen
+from urllib.parse import urlencode
+from urllib.request import urlopen
 from json import loads, dumps
 from collections import OrderedDict
 import numpy as np
@@ -23,7 +23,7 @@ class Submission():
         
         
     def submit(self):
-        print '==\n== Submitting Solutions | Programming Exercise %s\n==' % self.__homework
+        print('==\n== Submitting Solutions | Programming Exercise %s\n==' % self.__homework)
         self.login_prompt()
 
         parts = OrderedDict()
@@ -33,28 +33,28 @@ class Submission():
         result, response = self.request(parts)
         response = loads(response)
         try:
-            print response['errorMessage']
+            print(response['errorMessage'])
             return
         except:
             pass
-        print '=='
-        print '== %43s | %9s | %-s' % ('Part Name', 'Score', 'Feedback')
-        print '== %43s | %9s | %-s' % ('---------', '-----', '--------')
+        print('==')
+        print('== %43s | %9s | %-s' % ('Part Name', 'Score', 'Feedback'))
+        print('== %43s | %9s | %-s' % ('---------', '-----', '--------'))
         
 
         for part in parts:
             partFeedback = response['partFeedbacks'][part]
             partEvaluation = response['partEvaluations'][part]
             score = '%d / %3d' % (partEvaluation['score'], partEvaluation['maxScore'])
-            print '== %43s | %9s | %-s' % (self.__part_names[int(part)-1], score, partFeedback)
+            print('== %43s | %9s | %-s' % (self.__part_names[int(part)-1], score, partFeedback))
 
         evaluation = response['evaluation']
     
 
         totalScore = '%d / %d' % (evaluation['score'], evaluation['maxScore'])
-        print '==                                   --------------------------------'
-        print '== %43s | %9s | %-s\n' % (' ', totalScore, ' ')
-        print '=='
+        print('==                                   --------------------------------')
+        print('== %43s | %9s | %-s\n' % (' ', totalScore, ' '))
+        print('==')
 
         if not os.path.isfile('token.txt'):
             with open('token.txt', 'w') as f:
@@ -71,15 +71,15 @@ class Submission():
             pass
 
         if self.__login is not None and self.__password is not None:
-            reenter = raw_input('Use token from last successful submission (%s)? (Y/n): ' % self.__login)
+            reenter = input('Use token from last successful submission (%s)? (Y/n): ' % self.__login)
 
             if reenter == '' or reenter[0] == 'Y' or reenter[0] == 'y':
                 return
 
         if os.path.isfile('token.txt'):
             os.remove('token.txt')
-        self.__login = raw_input('Login (email address): ')
-        self.__password = raw_input('Token: ')
+        self.__login = input('Login (email address): ')
+        self.__password = input('Token: ')
 
     def request(self, parts):
 

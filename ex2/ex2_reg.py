@@ -52,7 +52,7 @@ plotData(X.values, y.values)
 plt.xlabel('Microchip Test 1')
 plt.ylabel('Microchip Test 2')
 show()
-raw_input("Program paused. Press Enter to continue...")
+input("Program paused. Press Enter to continue...")
 
 
 # =========== Part 1: Regularized Logistic Regression ============
@@ -73,7 +73,7 @@ Lambda = 0.0
 # regression
 cost = costFunctionReg(initial_theta, X, y, Lambda)
 
-print 'Cost at initial theta (zeros): %f' % cost
+print('Cost at initial theta (zeros): %f' % cost)
 
 # ============= Part 2: Regularization and Accuracies =============
 
@@ -85,20 +85,20 @@ theta = result.x
 cost = result.fun
 
 # Print to screen
-print 'lambda = ' + str(Lambda)
-print 'Cost at theta found by scipy: %f' % cost
-print 'theta:', ["%0.4f" % i for i in theta]
+print('lambda = ' + str(Lambda))
+print('Cost at theta found by scipy: %f' % cost)
+print('theta:', ["%0.4f" % i for i in theta])
 
-raw_input("Program paused. Press Enter to continue...")
+input("Program paused. Press Enter to continue...")
 
 plotBoundary(theta, X, y)
 
 # Compute accuracy on our training set
 p = np.round(sigmoid(X.dot(theta)))
 acc = np.mean(np.where(p == y.T,1,0)) * 100
-print 'Train Accuracy: %f' % acc
+print('Train Accuracy: %f' % acc)
 
-raw_input("Program paused. Press Enter to continue...")
+input("Program paused. Press Enter to continue...")
 
 # ============= Part 3: Optional Exercises =============
 
@@ -106,7 +106,7 @@ raw_input("Program paused. Press Enter to continue...")
 for Lambda in np.arange(0.0,10.1,1.0):
     result = optimize(Lambda)
     theta = result.x
-    print 'lambda = ' + str(Lambda)
-    print 'theta:', ["%0.4f" % i for i in theta]
+    print('lambda = ' + str(Lambda))
+    print('theta:', ["%0.4f" % i for i in theta])
     plotBoundary(theta, X, y)
-raw_input("Program paused. Press Enter to continue...")
+input("Program paused. Press Enter to continue...")
